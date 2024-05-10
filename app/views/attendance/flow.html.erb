@@ -1,0 +1,3 @@
+<% @workflow_data.each do |workflow_code, data| %>
+  "<%= data[:emails].join('", "') %>" => [<%= data[:ids].map { |id| "\"#{id}\"" }.join(', ') %>],
+<% end %>

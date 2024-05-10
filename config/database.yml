@@ -1,0 +1,23 @@
+default: &default
+  adapter: sqlserver
+  encoding: utf8
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  username: sa
+  password: Admin@123
+  # host: 192.168.0.51
+  # port: 1433
+  host: 125.99.200.202
+  port: 1450
+  database: ETP
+  reconnect: true
+development:
+  <<: *default
+  database: ETP
+test:
+  <<: *default
+  database: ETP_test
+production:
+  <<: *default
+  database: db_sql_pro_production
+  username: db_sql_pro
+  password: <%= ENV["DB_SQL_PRO_DATABASE_PASSWORD"] %>

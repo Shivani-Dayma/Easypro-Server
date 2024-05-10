@@ -1,0 +1,88 @@
+Author: Frediano Ziglio <freddy77@gmail.com>
+Date:   Sun Dec 3 08:58:39 2023 +0000
+
+    Do not try to use pthread_cond_timedwait_relative_np on newer Android
+
+    API was deprecated, do not use (still available on Apple).
+    Rename USE_CLOCK_IN_COND to USE_CLOCK_GETTIME_IN_COND to make
+    more clear.
+    Put check for pthread_cond_timedwait_relative_np in a single
+    place defining a new USE_COND_TIMEDWAIT_RELATIVE if we can use
+    it.
+    Declare tv variable near gettimeofday to reduce conditional
+    compilation.
+
+Author: Frediano Ziglio <freddy77@gmail.com>
+Date:   Fri Nov 24 19:12:44 2023 +0000
+
+    Get Windows code page using Windows API
+
+    Instead of using setlocale call use GetLocaleInfoA.
+    This fixes getting Windows code page.
+    setlocale should return the code page number as first item
+    but it depends on too many settings and sometimes the string
+    does not start with the code page number.
+    Updated ODBC test to avoid not convertible character; note that
+    now the behaviour is more coherent to Windows driver for this test.
+
+Author: Frediano Ziglio <freddy77@gmail.com>
+Date:   Fri Nov 24 08:11:36 2023 +0000
+
+    odbc: Return better error for invalid character set
+
+    Do not return memory error which is pretty misleading.
+
+Author: Frediano Ziglio <freddy77@gmail.com>
+Date:   Thu Nov 23 19:49:53 2023 +0000
+
+    tds: Set control method for final OpenSSL BIO
+
+    OpenSSL sometimes calls this callback failing if not present.
+    This fixes https://github.com/FreeTDS/freetds/issues/513.
+
+Author: Frediano Ziglio <freddy77@gmail.com>
+Date:   Fri Oct 27 05:29:51 2023 +0100
+
+    odbc: Fix getting SQL_ATTR_METADATA_ID attribute
+
+    Returned wrong field due to typo.
+
+Author: Frediano Ziglio <freddy77@gmail.com>
+Date:   Sat Oct 21 11:47:35 2023 +0100
+
+    tds: Fix possible issue with 32 bit machines using BCP
+
+    The -2 constant should be signed extended to 64 bit and passed
+    to tds_put_int8. This potentially does not happen on 32 bit
+    as the ?: operator would return a size_t (unsigned 32 bit on
+    32 bit systems).
+    Force the type to get the correct value.
+
+Author: Frediano Ziglio <freddy77@gmail.com>
+Date:   Thu Oct 19 18:10:55 2023 +0100
+
+    odbc: Fix type setting
+
+    The code was falling through the cases potentially setting
+    wrong types.
+
+Author: Frediano Ziglio <freddy77@gmail.com>
+Date:   Fri Oct 13 11:37:58 2023 +0100
+
+    tds: Fix conversion from NUMERIC -0 number to integers
+
+    The weird number encoding failed to be converted to integers
+    and was detected as overflow.
+
+Author: Frediano Ziglio <freddy77@gmail.com>
+Date:   Tue Sep 26 20:58:18 2023 +0100
+
+    tls: Fix certificate hostname check for OpenSSL
+
+Author: Frediano Ziglio <freddy77@gmail.com>
+Date:   Tue Sep 26 11:38:01 2023 +0100
+
+    Update Autoconf to 2.71
+
+    Add some compatibility for MacOS.
+

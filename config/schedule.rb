@@ -27,13 +27,13 @@ set :environment, 'development'
 #   rake 'attendance:send_employee_excel_report'
 # end
 
-# every :day, at: '5:00' do
+# every :day, at: '9:13pm' do
 #   rake 'attendance:send_employee_excel_report'
 # end
 
 # config/schedule.rb
 
 # Schedule the task to run every Monday at 5:00 AM
-every :monday, at: '5:00am' do
+every :monday, at: '7:00am' do
   rake 'attendance:send_employee_excel_report'
 end

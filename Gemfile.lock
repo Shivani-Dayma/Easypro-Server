@@ -88,8 +88,7 @@ GEM
       rack-test (>= 0.6.3)
       regexp_parser (>= 1.5, < 3.0)
       xpath (~> 3.2)
-    childprocess (0.9.0)
-      ffi (~> 1.0, >= 1.0.11)
+    childprocess (5.0.0)
     chronic (0.10.2)
     concurrent-ruby (1.2.3)
     crass (1.0.6)
@@ -98,33 +97,33 @@ GEM
       irb (~> 1.10)
       reline (>= 0.3.8)
     domain_name (0.6.20240107)
-    dotenv (3.1.0)
-    dotenv-rails (3.1.0)
-      dotenv (= 3.1.0)
+    dotenv (3.1.2)
+    dotenv-rails (3.1.2)
+      dotenv (= 3.1.2)
       railties (>= 6.1)
     erubi (1.12.0)
-    ffi (1.16.3)
     globalid (1.2.1)
       activesupport (>= 6.1)
     htmlentities (4.3.4)
     http-accept (1.7.0)
     http-cookie (1.0.5)
       domain_name (~> 0.5)
-    i18n (1.14.4)
+    i18n (1.14.5)
       concurrent-ruby (~> 1.0)
     importmap-rails (2.0.1)
       actionpack (>= 6.0.0)
       activesupport (>= 6.0.0)
       railties (>= 6.0.0)
     io-console (0.7.2)
-    irb (1.12.0)
-      rdoc
+    irb (1.13.1)
+      rdoc (>= 4.0.0)
       reline (>= 0.4.2)
-    jbuilder (2.11.5)
+    jbuilder (2.12.0)
       actionview (>= 5.0.0)
       activesupport (>= 5.0.0)
-    launchy (2.5.2)
+    launchy (3.0.1)
       addressable (~> 2.8)
+      childprocess (~> 5.0)
     letter_opener (1.10.0)
       launchy (>= 2.2, < 4)
     loofah (2.22.0)
@@ -140,15 +139,15 @@ GEM
     method_source (1.1.0)
     mime-types (3.5.2)
       mime-types-data (~> 3.2015)
-    mime-types-data (3.2024.0305)
+    mime-types-data (3.2024.0507)
     mini_mime (1.1.5)
     minitest (5.22.3)
     msgpack (1.7.2)
+    multi_json (1.15.0)
     mysql2 (0.5.6)
-    net-http (0.1.1)
-      net-protocol
+    net-http (0.4.1)
       uri
-    net-imap (0.4.10)
+    net-imap (0.4.11)
       date
       net-protocol
     net-pop (0.1.2)
@@ -158,7 +157,7 @@ GEM
     net-smtp (0.5.0)
       net-protocol
     netrc (0.11.0)
-    nio4r (2.7.1)
+    nio4r (2.7.3)
     nokogiri (1.16.4-x86_64-linux)
       racc (~> 1.4)
     psych (5.1.2)
@@ -202,7 +201,7 @@ GEM
     rdoc (6.6.3.1)
       psych (>= 4.0.0)
     regexp_parser (2.9.0)
-    reline (0.5.2)
+    reline (0.5.6)
       io-console (~> 0.5)
     rest-client (2.1.0)
       http-accept (>= 1.7.0, < 2.0)
@@ -210,9 +209,11 @@ GEM
       mime-types (>= 1.16, < 4.0)
       netrc (~> 0.8)
     rubyzip (1.0.0)
-    selenium-webdriver (3.8.0)
-      childprocess (~> 0.5)
+    selenium-webdriver (2.42.0)
+      childprocess (>= 0.5.0)
+      multi_json (~> 1.0)
       rubyzip (~> 1.0)
+      websocket (~> 1.0.4)
     sprockets (4.2.1)
       concurrent-ruby (~> 1.0)
       rack (>= 2.2.4, < 4)
@@ -238,6 +239,7 @@ GEM
       activemodel (>= 6.0.0)
       bindex (>= 0.4.0)
       railties (>= 6.0.0)
+    websocket (1.0.7)
     websocket-driver (0.7.6)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
@@ -252,7 +254,6 @@ PLATFORMS
 
 DEPENDENCIES
   activerecord-sqlserver-adapter
-  activesupport
   axlsx (~> 2.0)
   bootsnap
   capybara
@@ -272,6 +273,7 @@ DEPENDENCIES
   tiny_tds (~> 2.1.7)
   turbo-rails
   tzinfo-data
+  uri (= 0.10.1)
   web-console
   whenever
 
@@ -279,4 +281,4 @@ RUBY VERSION
    ruby 3.0.0p0
 
 BUNDLED WITH
-   2.2.3
+   2.4.14

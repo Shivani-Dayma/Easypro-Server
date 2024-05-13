@@ -5,7 +5,7 @@ namespace :attendance do
     require 'uri'
 
     # Define the URL of the route that triggers the action
-    url = URI.parse('http://localhost:3000/attendance/employee_excel')
+    url = URI.parse('http://192.168.10.10:9001/attendance/employee_excel')
 
     # Make an HTTP GET request to the URL
     response = Net::HTTP.get_response(url)

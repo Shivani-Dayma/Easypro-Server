@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    .container {
+      display: flex;
+      justify-content: space-around;
+      margin: 20px;
+    }
+    .checkbox-group {
+      display: flex;
+      flex-direction: column;
+    }
+    .button-container {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px; 
+    }
+  </style>
+</head>
+<body>
+<form action="/attendance/employee_excel" method="GET">
+  <div class="container">
+    <div class="checkbox-group">
+      <h3>Receiver</h3>
+      <div id="receivers"></div>
+      <button type="button" onclick="addReceiver()">Add Receiver</button>
+    </div>
+     <div class="checkbox-group">
+      <h3>Whose email do you need</h3>
+      <div id="employees"></div>
+      <button type="button" onclick="addEmployee()">Add Employee ID</button>
+    </div>
+    <div class="checkbox-group">
+      <h3>Time Range</h3>
+      <div>
+        <input type="date" name="fromDate" placeholder="From Date">
+        <input type="date" name="toDate" placeholder="To Date">
+      </div>
+    </div> 
+  </div>
+
+  <div class="button-container">
+    <button type="submit">Submit</button>
+  </div>
+</form>
+
+<script>
+  function addEmployee() {
+    const employeesDiv = document.getElementById('employees');
+    const newEmployeeDiv = document.createElement('div');
+    newEmployeeDiv.innerHTML = `
+      <input name="employees[]" value="employee${employeesDiv.children.length + 1}">
+      <input type="text" name="employeeIds[]" placeholder="Employee ID">
+     <button type="button" onclick="removeElement(this)">Remove</button>
+    `;
+    employeesDiv.appendChild(newEmployeeDiv);
+  }
+
+  function addReceiver() {
+    const receiversDiv = document.getElementById('receivers');
+    const newReceiverDiv = document.createElement('div');
+    newReceiverDiv.innerHTML = `
+      <input name="receivers[]" value="receiver${receiversDiv.children.length + 1}">
+      <input type="text" name="receiverNames[]" placeholder="Receiver Email">
+    <button type="button" onclick="removeElement(this)">Remove</button>
+    `;
+    receiversDiv.appendChild(newReceiverDiv);
+  }
+  function removeElement(button) {
+    button.parentElement.remove();
+  }
+  addEmployee();
+  addReceiver();
+</script>
+
+</body>
+</html>

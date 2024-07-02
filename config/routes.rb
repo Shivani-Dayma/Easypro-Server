@@ -8,4 +8,5 @@ Rails.application.routes.draw do
   get 'attendance/download_excel', to: 'attendance#download_excel'
   get 'attendance/employee_excel', to: 'attendance#employee_excel'
   get 'attendance/flow'
+  get 'attendance/specific_mail', to: 'attendance#specific_mail'
 end

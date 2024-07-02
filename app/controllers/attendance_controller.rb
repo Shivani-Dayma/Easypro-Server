@@ -42,21 +42,36 @@ class AttendanceController < ApplicationController
       @error_message # Return the error message
     end
   end
+
+  def specific_mail
+  end
   
   def employee_excel
     service = AttendanceService.new
-    flow
-    team_leads_and_employees = format_workflow_data
-    team_leads_and_employees = eval(format_workflow_data)
-      #team_leads_and_employees = {"amul@webkorps.com" => ["E182",""]} #for specific TL
+    team_leads_and_employees = {}
+    if params[:employeeIds].present? &&  params[:receiverNames].present?
+      params[:receiverNames].each do |receiver|
+        team_leads_and_employees[receiver] ||= []
+        team_leads_and_employees[receiver]  += params[:employeeIds]
+      end
+    else  
+      flow
+      team_leads_and_employees = format_workflow_data
+      team_leads_and_employees = eval(format_workflow_data)
+    end
     service.employee_excel(team_leads_and_employees,time_range)
-    redirect_to root_path
+    render 'attendance/succes_mail'
   end
 
   private
   def time_range
-    start_date = (Date.today - 7)
-    end_date = Date.today - 1
+    if params[:fromDate].present? && params[:toDate].present?
+      start_date=Date.parse(params[:fromDate])
+      end_date=Date.parse(params[:toDate])
+    else
+      start_date = (Date.today - 7)
+      end_date = Date.today - 1
+    end
     { start_date: start_date, end_date: end_date }
   end 
 

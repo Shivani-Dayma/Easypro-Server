@@ -1,14 +1,14 @@
 class AttendanceController < ApplicationController
   require 'attendance_service'
 
-  def index
-    # Fetching the iclock transactions for the last 7 days with associated personnel employees
-    start_date = time_range[:start_date]
-    end_date = time_range[:end_date]
-    @iclock_transactions = IclockTransaction.includes(:personnel_employee)
-                                            .where(punch_time: start_date.beginning_of_day..end_date.end_of_day)
-                                            .order(punch_time: :desc)
-  end
+  # def index
+  #   # Fetching the iclock transactions for the last 7 days with associated personnel employees
+  #   start_date = time_range[:start_date]
+  #   end_date = time_range[:end_date]
+  #   @iclock_transactions = IclockTransaction.includes(:personnel_employee)
+  #                                           .where(punch_time: start_date.beginning_of_day..end_date.end_of_day)
+  #                                           .order(punch_time: :desc)
+  # end
 
   def flow
     # This method will fetch flows and nodes from EasyPro workflow
@@ -48,12 +48,12 @@ class AttendanceController < ApplicationController
     flow
     team_leads_and_employees = format_workflow_data
     team_leads_and_employees = eval(format_workflow_data)
+      #team_leads_and_employees = {"amul@webkorps.com" => ["E182",""]} #for specific TL
     service.employee_excel(team_leads_and_employees,time_range)
     redirect_to root_path
   end
 
   private
-
   def time_range
     start_date = (Date.today - 7)
     end_date = Date.today - 1

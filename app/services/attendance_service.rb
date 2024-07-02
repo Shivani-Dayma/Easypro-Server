@@ -4,6 +4,7 @@ class AttendanceService
     require 'rest-client'
     require 'json'
     require 'net/http'
+    require 'set'
   
     def initialize; end
   
@@ -13,9 +14,13 @@ class AttendanceService
       ist_time_zone = 'Asia/Kolkata'
       usa_time_zone = 'Eastern Time (US & Canada)'
       generated_files = {}
+      sent_emails = Set.new # Track sent emails to prevent duplicates
   
       team_leads_and_employees.each do |team_lead_email, emp_ids|
         emp_ids.each do |emp_id|
+          # Check if email for this date range has already been sent
+          next if sent_emails.include?("#{team_lead_email}_#{emp_id}_#{start_date}_#{end_date}")
+
           employee = PersonnelEmployee.find_by(emp_code: emp_id)
           next unless employee.present?
   
@@ -113,13 +118,16 @@ class AttendanceService
   
           generated_files[team_lead_email] ||= []
           generated_files[team_lead_email] << file_path
+
+          # Add sent email to the set
+          sent_emails.add("#{team_lead_email}_#{emp_id}_#{start_date}_#{end_date}")
         end
       end
   
       generated_files.each do |team_lead_email, files|
         begin
           # Assuming UserMailer is defined elsewhere
-          # UserMailer.send_excel_with_attachments(email: team_lead_email, file_paths: files).deliver_now
+          UserMailer.send_excel_with_attachments(email: team_lead_email, file_paths: files).deliver_now
         rescue StandardError => e
           # Handle error
         end
